@@ -20,8 +20,16 @@ function wait() {
 }
 
 
-api.setLightState(light, red)
+function setLight() {
+  api.setLightState(light, blue)
 
-    .then(() => api.setLightState(light, stateOff))
-    .catch(err => console.log('error', err));
+      .then(() => api.setLightState(light, stateOff))
+      .catch(err => console.log('error', err));
+}
 
+
+
+const button = document.querySelector('#makeBlue');
+button.addEventListener("click", function () {
+  setLight();
+});

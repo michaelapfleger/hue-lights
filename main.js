@@ -12,7 +12,7 @@ function createWindow() {
     height: 600,
   });
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'public', 'index.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file',
     slashes: true,
   }));
@@ -29,10 +29,7 @@ function createWindow() {
 app.on('ready', () => {
   console.log('ready');
   createWindow();
-  globalShortcut.register('VolumeUp', () => win.webContents.send('VolumeUp'));
-  globalShortcut.register('VolumeDown', () => win.webContents.send('VolumeDown'));
-  globalShortcut.register('VolumeMute', () => win.webContents.send('VolumeMute'));
-  globalShortcut.register('MediaPlayPause', () => win.webContents.send('MediaPlayPause'));
+
 });
 
 app.on('window-all-closed', () => {
@@ -47,7 +44,3 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('change-icon', (event, arg) => {
-  const station = arg.shortName;
-    win.setIcon(path.join(__dirname, 'src', 'logos', `${station}-128-round.png`));
-});
