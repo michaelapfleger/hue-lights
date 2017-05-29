@@ -33,6 +33,12 @@ function setLight(color) {
       .catch(err => console.log('error', err));
 }
 
+function shutLight() {
+  api.setLightState(light, red)
+
+  .then(() => api.setLightState(light, stateOff))
+      .catch(err => console.log('error', err));
+}
 
 
 ws.on('open', () => {
@@ -43,5 +49,11 @@ ws.on('message', (data) => {
   console.log('MESSAGE!', data);
   if(data == 'Nerf') {
     take();
+    // shutLight();
+  }
+  if(data == 'Gillete') {
+    // take();
+    shutLight();
   }
 });
+
