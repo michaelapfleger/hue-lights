@@ -15,40 +15,18 @@ const stateLongAlert = hue.lightState.create().longAlert();
 const red = hue.lightState.create().on().rgb([255, 0, 0]);
 const green = hue.lightState.create().on().rgb([0, 255, 0]);
 const blue = hue.lightState.create().on().rgb([0, 0, 255]);
-const video = document.querySelector('#video');
+
 
 function wait() {
   return new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 
-function setLight() {
-  api.setLightState(light, blue)
+function setLight(color) {
+  console.log("set light", color);
+  const col = hue.lightState.create().on().rgb([color[0], color[1], color[2]]);
+  api.setLightState(light, col)
 
       .then(() => api.setLightState(light, stateOff))
       .catch(err => console.log('error', err));
 }
-
-
-
-const button = document.querySelector('#makeBlue');
-button.addEventListener("click", function () {
-  setLight();
-
-  desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
-
-    navigator.mediaDevices.getUserMedia({video: true})
-    // permission granted:
-        .then(function(stream) {
-          video.src = window.URL.createObjectURL(stream);
-        })
-        // permission denied:
-        .catch(function(error) {
-          document.body.textContent = 'Could not access the camera. Error: ' + error.name;
-        });
-  });
-
-
-
-
-});

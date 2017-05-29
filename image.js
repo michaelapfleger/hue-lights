@@ -42,5 +42,8 @@ document.getElementById('save').addEventListener('click',function(e){
   var colorThief = new ColorThief();
   console.log('[color]', colorThief.getColor(document.querySelector("#canvas")));
 
+
+  setLight(colorThief.getColor(document.querySelector("#canvas")));
+
 });
 
