@@ -41,8 +41,6 @@ function take() {
 
   draw(v,context,w,h); // when save button is clicked, draw video feed to canvas
   var colorThief = new ColorThief();
-  console.log('[color]', colorThief.getColor(document.querySelector("#canvas")));
-
 
   setLight(colorThief.getColor(document.querySelector("#canvas")));
 

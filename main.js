@@ -32,10 +32,6 @@ app.on('ready', () => {
   console.log('ready');
   createWindow();
 
-
-
-
-
 });
 
 app.on('window-all-closed', () => {

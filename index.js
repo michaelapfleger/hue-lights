@@ -1,59 +1,59 @@
-const {desktopCapturer } = require('electron');
-const hue = require('node-hue-api');
-const WebSocket = require('ws');
-const ws = new WebSocket('ws://192.168.1.4');
+const five = require('johnny-five');
+const board = new five.Board();
 
-const host = '192.168.1.6';
-const user = 'E7pLjjynbsOgscZSx-oBGhzbhEWfXxuynvQFn8g3';
-const light = 2;
+const motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
 
-const api = new hue.HueApi(host, user);
-
-const stateOn = hue.lightState.create().on();
-const stateBrightOn = hue.lightState.create().on().brightness(100);
-const stateDimmedOn = hue.lightState.create().on().brightness(5);
-const stateOff = hue.lightState.create().off();
-const stateLongAlert = hue.lightState.create().longAlert();
-const red = hue.lightState.create().on().rgb([255, 0, 0]);
-const green = hue.lightState.create().on().rgb([0, 255, 0]);
-const blue = hue.lightState.create().on().rgb([0, 0, 255]);
-
-
-function wait() {
-  return new Promise(resolve => setTimeout(resolve, 1000));
-}
-
-
-function setLight(color) {
-  console.log("set light", color);
-  const col = hue.lightState.create().on().rgb(color);
-  api.setLightState(light, col)
-
-      // .then(() => api.setLightState(light, stateOff))
-      .catch(err => console.log('error', err));
-}
-
-function shutLight() {
-  api.setLightState(light, red)
-
-  .then(() => api.setLightState(light, stateOff))
-      .catch(err => console.log('error', err));
-}
+board.on('ready', function ready() {
+  console.log('board ready');
+  const leftMotor = new five.Motor(motorConfigs.M1);
+  const rightMotor = new five.Motor(motorConfigs.M3);
+  const pingLeft = new five.Proximity({
+    controller: "HCSR04",
+    pin: 30,
+    freq: 500
+  });
+  const pingMiddle = new five.Proximity({
+    controller: "HCSR04",
+    pin: 32,
+    freq: 500
+  });
+  const pingRight = new five.Proximity({
+    controller: "HCSR04",
+    pin: 34,
+    freq: 500
+  });
 
 
-ws.on('open', () => {
-  console.log('connection open');
+  pingLeft.on('data', (data) => {
+    //console.log('LEFT', data.cm);
+  });
+  pingMiddle.on('data', (data) => {
+    //console.log('MIDDLE', data.cm);
+  });
+  pingRight.on('data', (data) => {
+    console.log('RIGHT', data.cm);
+  });
+  this.analogRead(1, function (data) {
+    //console.log('analogRead', data);
+  });
+  //leftMotor.forward(255);
+  //rightMotor.reverse(255);
+  console.log('spinning!');
+
+
+  setTimeout(() => {
+    console.log('stopping');
+    leftMotor.stop();
+    rightMotor.stop();
+  }, 2000)
+
 });
 
-ws.on('message', (data) => {
-  console.log('MESSAGE!', data);
-  if(data == 'Nerf') {
-    take();
-    // shutLight();
-  }
-  if(data == 'Gillete') {
-    // take();
-    shutLight();
-  }
-});
-
+function moveOneDown() {
+  const leftMotor = new five.Motor(motorConfigs.M1);
+  const rightMotor = new five.Motor(motorConfigs.M3);
+  
+  leftMotor.reverse(255);
+  rightMotor.reverse(255);
+  console.log("back");
+};
