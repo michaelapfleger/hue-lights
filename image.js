@@ -43,4 +43,3 @@ document.getElementById('save').addEventListener('click',function(e){
   console.log('[color]', colorThief.getColor(document.querySelector("#canvas")));
 
 });
-
