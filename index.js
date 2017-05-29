@@ -1,5 +1,7 @@
 const {desktopCapturer } = require('electron');
 const hue = require('node-hue-api');
+const WebSocket = require('ws');
+const ws = new WebSocket('ws://192.168.1.4');
 
 const host = '192.168.1.6';
 const user = 'E7pLjjynbsOgscZSx-oBGhzbhEWfXxuynvQFn8g3';
@@ -30,3 +32,16 @@ function setLight(color) {
       // .then(() => api.setLightState(light, stateOff))
       .catch(err => console.log('error', err));
 }
+
+
+
+ws.on('open', () => {
+  console.log('connection open');
+});
+
+ws.on('message', (data) => {
+  console.log('MESSAGE!', data);
+  if(data == 'Nerf') {
+    take();
+  }
+});

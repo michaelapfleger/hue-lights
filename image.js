@@ -1,3 +1,4 @@
+
 var video = document.querySelector("#videoElement");
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
@@ -36,7 +37,6 @@ function draw(v,c,w,h) {
   context.drawImage(v,0,0,w,h); // draw video feed to canvas
 }
 
-var t = setInterval(take,1000);
 function take() {
 
   draw(v,context,w,h); // when save button is clicked, draw video feed to canvas

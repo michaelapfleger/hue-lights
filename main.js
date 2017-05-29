@@ -1,7 +1,9 @@
 const { app, globalShortcut, BrowserWindow, ipcMain } = require('electron');
+
 const path = require('path');
 const url = require('url');
 const showDevTools = true;
+
 
 let win;
 
@@ -29,6 +31,10 @@ function createWindow() {
 app.on('ready', () => {
   console.log('ready');
   createWindow();
+
+
+
+
 
 });
 
