@@ -1,3 +1,4 @@
+const {desktopCapturer } = require('electron');
 const hue = require('node-hue-api');
 
 const host = '192.168.1.6';
@@ -14,6 +15,7 @@ const stateLongAlert = hue.lightState.create().longAlert();
 const red = hue.lightState.create().on().rgb([255, 0, 0]);
 const green = hue.lightState.create().on().rgb([0, 255, 0]);
 const blue = hue.lightState.create().on().rgb([0, 0, 255]);
+const video = document.querySelector('#video');
 
 function wait() {
   return new Promise(resolve => setTimeout(resolve, 1000));
@@ -32,4 +34,33 @@ function setLight() {
 const button = document.querySelector('#makeBlue');
 button.addEventListener("click", function () {
   setLight();
+
+  // desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
+  //   if (error) {
+  //     console.log(error);
+  //   }
+  //   console.log(sources);
+  //   // const appSource = sources.find(source => source.name === 'Ractio - Online Radio');
+  //   const appSource = sources[0];
+  //   navigator.webkitGetUserMedia({
+  //     audio: false,
+  //     video: {
+  //       mandatory: {
+  //         chromeMediaSourceId: sources[0].id,
+  //         chromeMediaSource: 'desktop',
+  //       },
+  //     },
+  //   }, (stream) => {
+  //     console.log('success', stream);
+  //     var source = document.createElement('source');
+  //     source.setAttribute('src', URL.createObjectURL(stream) );
+  //     video.appendChild(source);
+  //   }, (err) => {
+  //     console.log('error', err);
+  //   });
+  // });
+
+
+
+
 });
