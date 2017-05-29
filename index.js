@@ -24,9 +24,9 @@ function wait() {
 
 function setLight(color) {
   console.log("set light", color);
-  const col = hue.lightState.create().on().rgb([color[0], color[1], color[2]]);
+  const col = hue.lightState.create().on().rgb(color);
   api.setLightState(light, col)
 
-      .then(() => api.setLightState(light, stateOff))
+      // .then(() => api.setLightState(light, stateOff))
       .catch(err => console.log('error', err));
 }

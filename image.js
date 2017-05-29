@@ -36,7 +36,8 @@ function draw(v,c,w,h) {
   context.drawImage(v,0,0,w,h); // draw video feed to canvas
 }
 
-document.getElementById('save').addEventListener('click',function(e){
+var t = setInterval(take,1000);
+function take() {
 
   draw(v,context,w,h); // when save button is clicked, draw video feed to canvas
   var colorThief = new ColorThief();
@@ -45,5 +46,6 @@ document.getElementById('save').addEventListener('click',function(e){
 
   setLight(colorThief.getColor(document.querySelector("#canvas")));
 
-});
+};
+// t();
 
