@@ -35,30 +35,18 @@ const button = document.querySelector('#makeBlue');
 button.addEventListener("click", function () {
   setLight();
 
-  // desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
-  //   if (error) {
-  //     console.log(error);
-  //   }
-  //   console.log(sources);
-  //   // const appSource = sources.find(source => source.name === 'Ractio - Online Radio');
-  //   const appSource = sources[0];
-  //   navigator.webkitGetUserMedia({
-  //     audio: false,
-  //     video: {
-  //       mandatory: {
-  //         chromeMediaSourceId: sources[0].id,
-  //         chromeMediaSource: 'desktop',
-  //       },
-  //     },
-  //   }, (stream) => {
-  //     console.log('success', stream);
-  //     var source = document.createElement('source');
-  //     source.setAttribute('src', URL.createObjectURL(stream) );
-  //     video.appendChild(source);
-  //   }, (err) => {
-  //     console.log('error', err);
-  //   });
-  // });
+  desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
+
+    navigator.mediaDevices.getUserMedia({video: true})
+    // permission granted:
+        .then(function(stream) {
+          video.src = window.URL.createObjectURL(stream);
+        })
+        // permission denied:
+        .catch(function(error) {
+          document.body.textContent = 'Could not access the camera. Error: ' + error.name;
+        });
+  });
 
 
 
